@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel de Imágenes</title>
+    <style>
+        body {
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: center;
+            background-image: url('img/fondo.jpg'); /*  URL de mi imagen de fondo */
+            background-size: cover;
+            color:#28f945;
+        }
+        #carousel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            border: 2px ,linear-gradient(to bottom right, #2274ee, #28f94e); /* Degradado */
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(to bottom right, #2274ee, #28f94e); /* Degradado */
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: rgb(16, 186, 161);
+        }
+        input {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Carrusel de Imágenes</h1>
+    <div id="carousel">
+        <img id="image" src="" alt="Imagen del carrusel">
+    </div>
+    <button onclick="prevImage()">Anterior</button>
+    <button onclick="nextImage()">Siguiente</button>
+    
+    <input type="text" id="searchInput" placeholder="Buscar imagen...">
+    <button onclick="buscarImagen()">Buscar</button>
+
+    <script>
+        const images = [
+            'img/inicio.jpg',
+            'img/barcelona.jpg',
+            'img/argelia.jpg',
+            'img/argel.jpg',
+            'img/lagranmesquita.jpg',
+            'img/constantina.jpg', 
+            'img/londres.jpg',
+            'img/roma.jpg',
+            'img/paris.jpg',
+            'img/tokyo.jpg',
+            'img/newyork.jpg',
+            
+            
+          
+            
+        ];
+        let currentIndex = 0;
+
+        function mostrarImagen(index) {
+            document.getElementById('image').src = images[index];
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            mostrarImagen(currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            mostrarImagen(currentIndex);
+        }
+
+        function buscarImagen() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const index = images.findIndex(image => image.toLowerCase().includes(input));
+
+            if (index !== -1) {
+                currentIndex = index;
+                mostrarImagen(currentIndex);
+            } else {
+                alert("La imagen buscada no se encuentra");
+            }
+        }
+
+        // Inicializa el carrusel con la primera imagen
+        mostrarImagen(currentIndex);
+    </script>
+
+</body>
+</html>
